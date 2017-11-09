@@ -1,0 +1,22 @@
+{
+  "name": "scale-to-window-pixi",
+  "version": "1.0.0",
+  "description": "npm version of scale-to-window-pixi by kittykatattack at https://github.com/kittykatattack/scaleToWindow",
+  "main": "scaleToWindow.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ArcQ/scaleToWindow.git"
+  },
+  "keywords": [
+    "pixijs"
+  ],
+  "author": "arcq, kittykatattack",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ArcQ/scaleToWindow/issues"
+  },
+  "homepage": "https://github.com/ArcQ/scaleToWindow#readme"
+}
