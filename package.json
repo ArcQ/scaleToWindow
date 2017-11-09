@@ -1,6 +1,6 @@
 {
   "name": "scale-to-window-pixi",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "npm version of scale-to-window-pixi by kittykatattack at https://github.com/kittykatattack/scaleToWindow",
   "main": "scaleToWindow.js",
   "scripts": {
