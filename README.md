@@ -6,7 +6,14 @@ the maximum size of the browser's window. `scaleToWindow` will also align the el
 ![Alignment](screenShot.png)
 
 Here's how to use `scaleToWindow`:
+
+To install, you can use npm
+```
+npm install --save scale-to-window-pixi
+```
+
 ```js
+import scaleToWindow from 'scale-to-window-pixi';
 scaleToWindow(anyElement, borderColor, window, element);
 ```
 (If you are using [Pixi](https://github.com/pixijs/pixi.js), supply the `renderer.view` as the element.)
