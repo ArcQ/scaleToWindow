@@ -14,7 +14,9 @@ npm install --save scale-to-window-pixi
 
 ```js
 import scaleToWindow from 'scale-to-window-pixi';
-scaleToWindow(anyElement, borderColor, window, element);
+const getWindow = () => window;
+const getDocument = () => document;
+scaleToWindow(anyElement, borderColor, getWindow, getDocument);
 ```
 (If you are using [Pixi](https://github.com/pixijs/pixi.js), supply the `renderer.view` as the element.)
 The optional second argument lets you set the color of the browser's background that borders the element. You can supply any RGB, HSLA or Hexadecimal color value, as well as the any HTML color string, like “blue” or “red”. (If you don't supply this optional color, the border will be set to a neutral dark gray: #2C3539.)
