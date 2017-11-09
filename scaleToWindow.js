@@ -1,6 +1,8 @@
 export default function scaleToWindow(canvas, backgroundColor, _window, _document) {
   var scaleX, scaleY, scale, center;
 
+  const iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !_window.MSStream;
+
   const getWWidth = () => ((iOS) ? _window.screen.width : _getWWidth()
     || _document._documentElement.clientWidth
     || _document.body.clientWidth);
