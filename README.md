@@ -1,9 +1,9 @@
 Scale and align an HTML element in the browser
 ===============================================
+
+This initially started off being the npm downloadable fork of scale-to-window-pixi by kittykatattack at https://github.com/kittykatattack/scaleToWindow. However for my purposes I have modified it so that it doesn't only apply to a canvas element but a container element with centered children inside of it.
 Use the function `scaleToWindow` to scale an HTML element to
 the maximum size of the browser's window. `scaleToWindow` will also align the element for the best vertical or horizontal fit inside the browser window. For example, if you have an element that's wider than it is tall, it will be centered vertically inside the browser. If the element is taller than it is wide, it will be centered horizontally.
-
-![Alignment](screenShot.png)
 
 Here's how to use `scaleToWindow`:
 
@@ -11,22 +11,32 @@ To install, you can use npm
 ```
 npm install --save scale-to-window-pixi
 ```
+## New way of usage
 
 ```js
 import scaleToWindow from 'scale-to-window-pixi';
+// in case you need ssr, it's good to wrap your window objects in some method
 const getWindow = () => window;
 const getDocument = () => document;
-scaleToWindow(anyElement, borderColor, getWindow, getDocument);
+scaleToWindow(eleDict, getWindow, getDocument, backgroundColor);
 ```
-(If you are using [Pixi](https://github.com/pixijs/pixi.js), supply the `renderer.view` as the element.)
-The optional second argument lets you set the color of the browser's background that borders the element. You can supply any RGB, HSLA or Hexadecimal color value, as well as the any HTML color string, like “blue” or “red”. (If you don't supply this optional color, the border will be set to a neutral dark gray: #2C3539.)
+
+`scaleToWindow` accepts 4 arguments:
+
+`eleDict`: this is an object of shape `{ containerSel: '.app', childSelArr: ['.childOne', '.childTwo']}`
+
+scaleToWindow will find the element that matches the selector matched in containerSel, and apply the resize and center based on window size. All selectors in `childSelArr`
+
+`getWindow`: this is a function that returns the global window object
+
+`getDocument`: this is a function that returns the global document object
+
+`backgroundColor`: (optional) this is the color code of the background color of the surrounding element of everything outside of your view
 
 The `scaleToWindow` function also returns the `scale` value that the
 element is scaled to. You can find it like this:
-```js
-var scale = scaleToWindow(renderer.view);
-```
-This will give you a number, like 1.98046875, which tells you the
+
+scaleToWindow(...)  will give you a number, like 1.98046875, which tells you the
 ratio by which the element was scaled. This might be an important value
 to know if you need to convert browser pixel coordinates to the scaled
 pixel values of the element. For example, if you have a `pointer`
@@ -42,7 +52,7 @@ time the size of the browser window is changed. If that’s the case,
 call `scaleToWindow` inside a window event listener:
 ```js
 window.addEventListener("resize", function(event){ 
-  scaleToWindow(anyelementElement);
+  scaleToWindow(eleDict, getWindow, getDocument, backgroundColor);
 });
 ```
 For the best effect, make sure that you set the browser's default margins and
@@ -55,9 +65,14 @@ trick:
 If you prefer, you can add this CSS style using JavaScript in your main program
 like this:
 ```
-var newStyle = document.createElement("style");
-var style = "* {padding: 0; margin: 0}";
+const newStyle = document.createElement("style");
+const style = "* {padding: 0; margin: 0}";
 newStyle.appendChild(document.createTextNode(style));
 document.head.appendChild(newStyle);
 ```
 
+
+## Originial Methods
+
+The older methods written by kittykatattack remain. To use, they are included in ```scale-to-window-pixi/scale-to-canvas-window```
+For actual usage instructions, the old readme still exists under scaleCanvasToWindow/
