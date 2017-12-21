@@ -18,20 +18,22 @@ import scaleToWindow from 'scale-to-window-pixi';
 // in case you need ssr, it's good to wrap your window objects in some method
 const getWindow = () => window;
 const getDocument = () => document;
-scaleToWindow(eleDict, getWindow, getDocument, backgroundColor);
+scaleToWindow(eleDict, getWindow, getDocument, backgroundColor)(canvas);
 ```
 
 `scaleToWindow` accepts 4 arguments:
 
 `eleDict`: this is an object of shape `{ containerSel: '.app', childSelArr: ['.childOne', '.childTwo']}`
 
-scaleToWindow will find the element that matches the selector matched in containerSel, and apply the resize and center based on window size. All selectors in `childSelArr`
+scaleToWindow will find the element that matches the selector matched in containerSel, and apply the resize and center based on window size. The way it will apply this will be based on the aspect ratio of the canvas that is passed in. All selectors in `childSelArr` are optional, but will be scaled to the size of the container.
 
 `getWindow`: this is a function that returns the global window object
 
 `getDocument`: this is a function that returns the global document object
 
 `backgroundColor`: (optional) this is the color code of the background color of the surrounding element of everything outside of your view
+
+`canvas`: this is the canvas. You will need to set the initial height and width that reflects a pixel density that matches the device that you are optimizing for. scaleToWindow will use the canvas's dimensions to determine the aspect ratio of the container.
 
 The `scaleToWindow` function also returns the `scale` value that the
 element is scaled to. You can find it like this:
@@ -52,7 +54,7 @@ time the size of the browser window is changed. If that’s the case,
 call `scaleToWindow` inside a window event listener:
 ```js
 window.addEventListener("resize", function(event){ 
-  scaleToWindow(eleDict, getWindow, getDocument, backgroundColor);
+  scaleToWindow(eleDict, getWindow, getDocument, backgroundColor)(canvas);
 });
 ```
 For the best effect, make sure that you set the browser's default margins and
